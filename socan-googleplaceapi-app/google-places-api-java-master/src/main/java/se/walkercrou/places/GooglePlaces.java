@@ -664,14 +664,14 @@ public class GooglePlaces implements GooglePlacesInterface {
     }
 
     public static void debug(List<Place> places,String type) {
-     	System.out.println("type=" + type);
+     	//System.out.println("type=" + type);
      	debug(places);
     }
     
     public static void debug(List<Place> places) {
 		int idx=0;
 		for (Place place : places) {
-			place.debug(place, idx);
+			//place.debug(place, idx);
 			idx++;
 		}
     }

@@ -28,6 +28,7 @@ CREATE TABLE general_licensees(
 	state_prov VARCHAR(24) ,
 	post_code VARCHAR(10) ,
 	country VARCHAR(256) ,
+	
 	PRIMARY KEY ( id)
  );
 

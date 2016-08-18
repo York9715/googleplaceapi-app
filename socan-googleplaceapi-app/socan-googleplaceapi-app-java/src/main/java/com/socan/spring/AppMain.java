@@ -30,33 +30,6 @@ public class AppMain {
 		context.close();
 	}
 	
-	public static int checkBusinessUnits(List<Place> places,AbstractApplicationContext context) {
-		
-		GeneralLicenseesService generalLicenseesService = (GeneralLicenseesService) context.getBean("generalLicenseesService");
-		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
-		BusinessUnitsService  businessUnitsService = (BusinessUnitsService)context.getBean("businessUnitsService");
-		
-		Place empireStateBuilding = null;
-		int idx=0;
-		
-		for (Place place : places) {			
-			idx++;			
-			BusinessUnitsFromApi businessUnitsFromApi= new BusinessUnitsFromApi();
-			GoogleApiUtil.setBusinessUnitsFromApi(businessUnitsFromApi, place);
-			
-			if (businessUnitsService.isLicensedBusinessUnit(businessUnitsFromApi))	
-				businessUnitsFromApi.setSocanLicensed(true);
-			else
-				businessUnitsFromApi.setSocanLicensed(false);
-			
-			//persist to database
-			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);	
-						
-		}
-		
-		return idx;
-	}
-	
 	
 	public static void dailyRun(AbstractApplicationContext context) {
 		System.out.println(new Date());
@@ -85,6 +58,7 @@ public class AppMain {
 		
 		//Search each post code
 		for(String postCode : postCodes) {
+			
 			Location location = client.getLocationByPostCode(postCode);
 			if ( location ==  null) {
 				System.out.println("null");
@@ -94,6 +68,34 @@ public class AppMain {
 			checkBusinessUnits(places,context);
 		}
 	}
+
+	public static int checkBusinessUnits(List<Place> places,AbstractApplicationContext context) {
+		
+		GeneralLicenseesService generalLicenseesService = (GeneralLicenseesService) context.getBean("generalLicenseesService");
+		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
+		BusinessUnitsService  businessUnitsService = (BusinessUnitsService)context.getBean("businessUnitsService");
+		
+		Place empireStateBuilding = null;
+		int idx=0;
+		
+		for (Place place : places) {			
+			idx++;			
+			BusinessUnitsFromApi businessUnitsFromApi= new BusinessUnitsFromApi();
+			GoogleApiUtil.setBusinessUnitsFromApi(businessUnitsFromApi, place);
+			
+			if (businessUnitsService.isLicensedBusinessUnit(businessUnitsFromApi))	
+				businessUnitsFromApi.setSocanLicensed(true);
+			else
+				businessUnitsFromApi.setSocanLicensed(false);
+			
+			//persist to database
+			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);	
+						
+		}
+		
+		return idx;
+	}
+	
 	
 	public  void dbTest(String args[]) {
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
