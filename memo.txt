@@ -1,0 +1,64 @@
+https://github.com/windy1/google-places-api-java
+
+application.properties:
+jdbc.driverClassName = com.mysql.jdbc.Driver
+jdbc.url = jdbc:mysql://localhost:3306/socan2
+jdbc.username =googleapi
+jdbc.password =googleapi
+hibernate.dialect = org.hibernate.dialect.MySQLDialect
+hibernate.show_sql = true
+hibernate.format_sql = false
+
+
+CREATE USER 'googleapi'@'localhost' IDENTIFIED BY 'googleapi';
+GRANT ALL PRIVILEGES ON *.* TO 'googleapi'@'localhost';
+
+CREATE TABLE general_licensees(
+	id INT NOT NULL AUTO_INCREMENT,	
+	masked_id INT NOT NULL ,
+	NAME VARCHAR(1024) NOT NULL,
+	sic VARCHAR(12) NOT NULL,
+	full_description VARCHAR(1024) ,
+	address VARCHAR(1024) ,
+	address2 VARCHAR(1024) ,
+	address3 VARCHAR(1024) ,
+	city VARCHAR(1024) ,
+	state_prov VARCHAR(24) ,
+	post_code VARCHAR(10) ,
+	country VARCHAR(256) ,
+	PRIMARY KEY ( id)
+ );
+
+
+CREATE TABLE music_subscriber(
+	id INT NOT NULL AUTO_INCREMENT,	
+	supplier INT ,
+	customer_name VARCHAR(1024) NOT NULL,
+	address1 VARCHAR(1024) ,
+	city VARCHAR(1024) ,
+	provive VARCHAR(24) ,
+	pc VARCHAR(10) ,
+	PRIMARY KEY ( id)
+ );
+
+
+CREATE TABLE business_units_from_api(
+	id INT NOT NULL AUTO_INCREMENT,	
+	name VARCHAR(1024) ,
+	phone VARCHAR(1024) ,
+	international_phone VARCHAR(1024) ,
+	website VARCHAR(1024) ,
+	always_opened VARCHAR(1024) ,
+	google_place_url VARCHAR(1024) ,
+	price VARCHAR(1024) ,
+	address VARCHAR(1024) ,
+	vicinity VARCHAR(1024) ,
+	reviews VARCHAR(1024) ,
+	hours VARCHAR(1024) ,
+	socan_licensed BOOLEAN DEFAULT false,
+	search_date Date,
+	updated_date Date,
+	PRIMARY KEY ( id)
+	
+ );
+
