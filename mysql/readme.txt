@@ -1,5 +1,3 @@
-https://github.com/York9715/googleplaceapi-app.git
-
 
 
 application.properties:
