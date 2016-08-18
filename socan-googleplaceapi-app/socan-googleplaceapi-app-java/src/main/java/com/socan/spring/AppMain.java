@@ -112,7 +112,6 @@ public class AppMain {
 		businessUnit2.setName("name22");
 		businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnit2);
 		
-		EmployeeService service = (EmployeeService) context.getBean("employeeService");
 		
 	}
 }
