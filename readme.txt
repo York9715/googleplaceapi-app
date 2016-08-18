@@ -17,3 +17,15 @@
 
 3. The Main entry is AppMain.java
 
+
+6. :
+    We only pick up following business units:
+    (1) GYM
+    (2) Night 
+    (3) Restaurant
+    (4) spa
+    
+     See details in them methos of GooglePlaces.java: 
+        public List<Place> getNearbySocanRelativePlaces(double lat,....
+         ....
+

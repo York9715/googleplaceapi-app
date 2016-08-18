@@ -7,6 +7,7 @@ import com.socan.spring.model.BusinessUnitsFromApi;
 import se.walkercrou.places.Place;
 
 public class GoogleApiUtil {
+	
 	public static BusinessUnitsFromApi setBusinessUnitsFromApi(BusinessUnitsFromApi businessUnit,Place place){
 		if (businessUnit==null)
 			businessUnit= new BusinessUnitsFromApi();
