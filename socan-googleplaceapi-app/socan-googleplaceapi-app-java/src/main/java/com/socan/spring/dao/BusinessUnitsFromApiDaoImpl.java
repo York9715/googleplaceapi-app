@@ -3,6 +3,7 @@ package com.socan.spring.dao;
 import java.util.List;
 
 import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.socan.spring.model.BusinessUnitsFromApi;
 
 @Repository("businessUnitsFromApiDao")
+@Transactional
 public class BusinessUnitsFromApiDaoImpl extends AbstractDao implements BusinessUnitsFromApiDao{
 	
 	public void saveBusinessUnitsFromApi(BusinessUnitsFromApi businessUnitsFromApi){

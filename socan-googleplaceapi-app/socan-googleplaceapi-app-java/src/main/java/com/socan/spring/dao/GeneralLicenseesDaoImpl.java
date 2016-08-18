@@ -2,6 +2,8 @@ package com.socan.spring.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.socan.spring.model.*;
 
 import org.hibernate.Criteria;
@@ -10,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository("generalLicenseesDao")
+@Transactional
 public class GeneralLicenseesDaoImpl extends AbstractDao implements GeneralLicenseesDao{
 
 	public void saveGeneralLicensees(GeneralLicensees generalLicensees){

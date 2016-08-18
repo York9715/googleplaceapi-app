@@ -350,7 +350,7 @@ public class Place {
      * @return true if always opened
      */
     public boolean isAlwaysOpened() {
-        return hours.isAlwaysOpened();
+        return false;
     }
 
     /**

@@ -22,16 +22,34 @@ import com.socan.spring.util.GoogleApiUtil;
 public class AppMain {
 	private static final String API_KEY_FILE_NAME = "places_api.key";
 	
+	AbstractApplicationContext context;
+	
+    public AppMain() {
+    	context = new AnnotationConfigApplicationContext(AppConfig.class);
+    }
+
+    
 	public static void main(String args[]) {
-		AppMain client= new AppMain();
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-		client.dailyRun(context);
+		AppMain client= new AppMain();		
+		client.dailyRun();	
 		//client.dbTest(null);
-		context.close();
 	}
 	
+	@Override
+    protected void finalize() throws Throwable {
+        try{
+        	context.close();
+        }catch(Throwable t){
+            throw t;
+        }finally{
+            System.out.println("Calling finalize of Super Class");
+            super.finalize();
+        }      
+    }
+
 	
-	public static void dailyRun(AbstractApplicationContext context) {
+	public void dailyRun() {
+		
 		System.out.println(new Date());
 		GooglePlaces client =null;
 		double radius=1000;	//5 kilometer
@@ -65,12 +83,13 @@ public class AppMain {
 			}
 			List<Place> places = client.getNearbySocanRelativePlacesByPostCode(postCode, radius);
 
-			checkBusinessUnits(places,context);
+			checkBusinessUnits(places);
 		}
+		
+		
 	}
 
-	public static int checkBusinessUnits(List<Place> places,AbstractApplicationContext context) {
-		
+	public int checkBusinessUnits(List<Place> places) {		
 		GeneralLicenseesService generalLicenseesService = (GeneralLicenseesService) context.getBean("generalLicenseesService");
 		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
 		BusinessUnitsService  businessUnitsService = (BusinessUnitsService)context.getBean("businessUnitsService");
@@ -92,13 +111,11 @@ public class AppMain {
 			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);	
 						
 		}
-		
 		return idx;
 	}
 	
 	
 	public  void dbTest(String args[]) {
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		//GoogleApiUtil.setBusinessUnitsFromApi(b, place)
 		
 		GeneralLicenseesService service1 = (GeneralLicenseesService) context.getBean("generalLicenseesService");

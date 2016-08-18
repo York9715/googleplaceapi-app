@@ -10,19 +10,21 @@ public class GoogleApiUtil {
 	public static BusinessUnitsFromApi setBusinessUnitsFromApi(BusinessUnitsFromApi businessUnit,Place place){
 		if (businessUnit==null)
 			businessUnit= new BusinessUnitsFromApi();
+		if (place==null)
+			return businessUnit;
 	
-		businessUnit.setName(place.getName());
-		businessUnit.setPhone(place.getPhoneNumber());
-		businessUnit.setInternationalPhone(place.getInternationalPhoneNumber());
-		businessUnit.setWebsite(place.getWebsite());
+		if (place.getName()!=null) businessUnit.setName(place.getName());
+		if (place.getPhoneNumber()!=null) businessUnit.setPhone(place.getPhoneNumber());
+		if (place.getInternationalPhoneNumber()!=null) businessUnit.setInternationalPhone(place.getInternationalPhoneNumber());
+		if (place.getWebsite()!=null) businessUnit.setWebsite(place.getWebsite());
 		businessUnit.setAlwaysPpened(Boolean.toString(place.isAlwaysOpened()));
-		//businessUnit.setStatus(place.getStatus());
-		businessUnit.setGooglePlaceUrl(place.getGoogleUrl());
-		businessUnit.setPrice(place.getPrice().toString());
-		businessUnit.setAddress(place.getAddress());
-		businessUnit.setVicinity(place.getVicinity());
-		businessUnit.setReviews("");
-		businessUnit.setHours((place.getHours()).toString());
+		//if (place.getStatus()!=null) businessUnit.setStatus(place.getStatus());
+		if (place.getGoogleUrl()!=null) businessUnit.setGooglePlaceUrl(place.getGoogleUrl());
+		if (place.getPrice()!=null) businessUnit.setPrice(place.getPrice().toString());
+		if (place.getAddress()!=null) businessUnit.setAddress(place.getAddress());
+		if (place.getVicinity()!=null) businessUnit.setVicinity(place.getVicinity());
+		if (place.getReviews()!=null) businessUnit.setReviews("");
+		if (place.getHours()!=null) businessUnit.setHours((place.getHours()).toString());
 		
 		return businessUnit;
 	}

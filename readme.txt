@@ -1,9 +1,11 @@
 1. Import database (socandump0818.zip)
 
-2. Create "googleapi"/"googleapi"@localhost
+2. Create "googleapi"/"googleapi"@localhost user
    (Default db is socan2)
 
 3. Open Project "google-places-api-java-master" and intall it
+   places_api.key is the place to store the Googel Places API KEY
+    
 
 4. Open Project "socan-googleplaceapi-app-java", 
    I think we can put the all Canada and UsA post code into a table, run this job every day by pickcing up postcode from db.
