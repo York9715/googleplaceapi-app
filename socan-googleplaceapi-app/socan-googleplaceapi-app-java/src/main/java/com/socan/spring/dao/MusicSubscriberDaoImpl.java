@@ -14,6 +14,7 @@ import com.socan.spring.model.MusicSubscriber;
 @Repository("musicSubscriberDao")
 @Transactional
 public class MusicSubscriberDaoImpl extends AbstractDao implements MusicSubscriberDao{
+	
 	public void saveMusicSubscriber(MusicSubscriber musicSubscriber){
 		persist(musicSubscriber);
 	}
