@@ -1,12 +1,10 @@
 package com.socan.spring;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.time.LocalDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
@@ -20,6 +18,7 @@ import com.socan.spring.service.*;
 import com.socan.spring.util.GoogleApiUtil;
 
 public class AppMain {
+	
 	private static final String API_KEY_FILE_NAME = "places_api.key";
 	
 	AbstractApplicationContext context;
@@ -32,8 +31,8 @@ public class AppMain {
 	public static void main(String args[]) {
 		AppMain client= new AppMain();		
 		client.dailyRun();	
-		//client.dbTest(null);
 	}
+	
 	
 	@Override
     protected void finalize() throws Throwable {
@@ -52,7 +51,7 @@ public class AppMain {
 		
 		System.out.println(new Date());
 		GooglePlaces client =null;
-		double radius=1000;	//5 kilometer
+		double radius=5000;	//5 kilometer
 		
 		//Create GooglePlaces instance
 		try{			
@@ -84,12 +83,12 @@ public class AppMain {
 			List<Place> places = client.getNearbySocanRelativePlacesByPostCode(postCode, radius);
 
 			checkBusinessUnits(places);
-		}
-		
+		}		
 		
 	}
 
-	public int checkBusinessUnits(List<Place> places) {		
+	public int checkBusinessUnits(List<Place> places) {	
+		
 		GeneralLicenseesService generalLicenseesService = (GeneralLicenseesService) context.getBean("generalLicenseesService");
 		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
 		BusinessUnitsService  businessUnitsService = (BusinessUnitsService)context.getBean("businessUnitsService");
@@ -111,26 +110,8 @@ public class AppMain {
 			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);	
 						
 		}
+		
 		return idx;
-	}
-	
-	
-	public  void dbTest(String args[]) {
-		//GoogleApiUtil.setBusinessUnitsFromApi(b, place)
-		
-		GeneralLicenseesService service1 = (GeneralLicenseesService) context.getBean("generalLicenseesService");
-		List<GeneralLicensees> generalLicensees=service1.findAllGeneralLicenseesByName("Mile House");
-		System.out.println(generalLicensees);
-				
-		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
-		BusinessUnitsFromApi businessUnit= new BusinessUnitsFromApi();
-	
-		businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnit);
-		
-		BusinessUnitsFromApi businessUnit2= new BusinessUnitsFromApi();
-		businessUnit2.setName("name22");
-		businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnit2);
-		
-		
-	}
+	}		
+
 }
