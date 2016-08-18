@@ -25,15 +25,17 @@ public class AppMain {
 	public static void main(String args[]) {
 		AppMain client= new AppMain();
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-		//client.dailyRun(context);
-		client.dbTest(null);
+		client.dailyRun(context);
+		//client.dbTest(null);
 		context.close();
 	}
 	
 	public static int checkBusinessUnits(List<Place> places,AbstractApplicationContext context) {
+		
 		GeneralLicenseesService generalLicenseesService = (GeneralLicenseesService) context.getBean("generalLicenseesService");
 		BusinessUnitsFromApiService businessUnitsFromApiService = (BusinessUnitsFromApiService) context.getBean("businessUnitsFromApiService");
-
+		BusinessUnitsService  businessUnitsService = (BusinessUnitsService)context.getBean("businessUnitsService");
+		
 		Place empireStateBuilding = null;
 		int idx=0;
 		
@@ -42,8 +44,14 @@ public class AppMain {
 			BusinessUnitsFromApi businessUnitsFromApi= new BusinessUnitsFromApi();
 			GoogleApiUtil.setBusinessUnitsFromApi(businessUnitsFromApi, place);
 			
+			if (businessUnitsService.isLicensedBusinessUnit(businessUnitsFromApi))	
+				businessUnitsFromApi.setSocanLicensed(true);
+			else
+				businessUnitsFromApi.setSocanLicensed(false);
+			
 			//persist to database
-			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);			
+			businessUnitsFromApiService.saveBusinessUnitsFromApi(businessUnitsFromApi);	
+						
 		}
 		
 		return idx;
