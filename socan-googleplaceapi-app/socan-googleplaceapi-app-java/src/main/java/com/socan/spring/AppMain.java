@@ -31,6 +31,7 @@ public class AppMain {
 	public static void main(String args[]) {
 		AppMain client= new AppMain();		
 		client.dailyRun();	
+		System.out.println("Finished");
 	}
 	
 	

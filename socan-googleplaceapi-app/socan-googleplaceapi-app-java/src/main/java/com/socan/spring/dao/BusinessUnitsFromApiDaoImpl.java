@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.socan.spring.model.BusinessUnitsFromApi;
+import com.socan.spring.model.GeneralLicensees;
 
 @Repository("businessUnitsFromApiDao")
 @Transactional
@@ -39,6 +40,39 @@ public class BusinessUnitsFromApiDaoImpl extends AbstractDao implements Business
 		criteria.add(Restrictions.eq("id",id));
 		return (BusinessUnitsFromApi) criteria.uniqueResult();
 		
+	}
+	
+	public List<BusinessUnitsFromApi> findByNameAndAddressAndVicinity(String name, String address, String vicinity){
+		if (name==null || name.isEmpty()) return null;
+		
+		if (vicinity.isEmpty() && address.isEmpty() ) return null;
+			
+		String hql = "from BusinessUnitsFromApi where name=:name";
+		
+		if (vicinity != null)
+			hql += " and vicinity=:vicinity";
+		else
+			hql += " and vicinity is null";
+	
+		if (address != null)
+			hql += " and address=:address";
+		else
+			hql += " and address is null";
+		
+		Query query = getSession().createQuery(hql);
+		
+		query.setParameter("name", name);
+		
+		if (vicinity != null)
+			query.setParameter("vicinity", vicinity);
+
+		if (address != null)
+			query.setParameter("address", address);
+		
+		List<BusinessUnitsFromApi> listGeneralLicensees = query.list();
+		if (listGeneralLicensees !=null && listGeneralLicensees.size() >0 ) return listGeneralLicensees;
+		
+		return null;
 	}
 	
 	public void updateBusinessUnitsFromApi(BusinessUnitsFromApi businessUnitsFromApi){

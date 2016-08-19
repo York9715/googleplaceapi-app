@@ -5,4 +5,7 @@ import com.socan.spring.model.*;
 
 public interface BusinessUnitsService {
 	boolean isLicensedBusinessUnit(BusinessUnitsFromApi businessUnitsFromApi);
+	
+	boolean hasBeenCheckedBefore(BusinessUnitsFromApi businessUnitsFromApi);
+	
 }

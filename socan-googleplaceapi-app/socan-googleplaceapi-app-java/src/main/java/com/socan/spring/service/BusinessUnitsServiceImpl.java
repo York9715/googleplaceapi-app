@@ -41,4 +41,22 @@ public class BusinessUnitsServiceImpl implements BusinessUnitsService{
 		return false;
 	}
 	
+	public boolean hasBeenCheckedBefore(BusinessUnitsFromApi businessUnitsFromApi){
+		
+		String name=businessUnitsFromApi.getName();
+		String address =businessUnitsFromApi.getAddress();
+		String phone =businessUnitsFromApi.getPhone();
+		String vicinity=businessUnitsFromApi.getVicinity();
+		
+		//1. Check this business unit has been searched in Google Place API
+		List<BusinessUnitsFromApi> listBusinessUnitsFromApir;
+		listBusinessUnitsFromApir=businessUnitsFromApiDao.findByNameAndAddressAndVicinity(name,address,vicinity);
+		
+		if (listBusinessUnitsFromApir !=null && listBusinessUnitsFromApir.size() > 0) {
+			return true;
+		}
+		
+		return false;
+	}	
+
 }

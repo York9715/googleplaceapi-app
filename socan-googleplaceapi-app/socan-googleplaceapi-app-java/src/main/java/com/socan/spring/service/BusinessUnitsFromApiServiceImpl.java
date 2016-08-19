@@ -15,9 +15,15 @@ import com.socan.spring.model.*;
 public class BusinessUnitsFromApiServiceImpl implements BusinessUnitsFromApiService{
 	@Autowired
 	private BusinessUnitsFromApiDao dao;
+
+	@Autowired
+	private BusinessUnitsService businessUnitsService;
 	
 	public void saveBusinessUnitsFromApi(BusinessUnitsFromApi businessUnitsFromApi){
-		dao.saveBusinessUnitsFromApi(businessUnitsFromApi);
+		if (!businessUnitsService.hasBeenCheckedBefore(businessUnitsFromApi))
+			dao.saveBusinessUnitsFromApi(businessUnitsFromApi);
+		else
+			System.out.println(businessUnitsFromApi.getName() + " has been checked before");
 	}
 	
 	public List<BusinessUnitsFromApi> findAllBusinessUnitsFromApi(){

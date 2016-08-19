@@ -17,6 +17,7 @@ public class GoogleApiClient {
 		client.run();
 	}
 	*/
+	
 	public static void run() {
 		System.out.println(new Date());
 		GooglePlaces client =null;

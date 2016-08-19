@@ -12,6 +12,8 @@ public interface BusinessUnitsFromApiDao {
 	
 	void deleteBusinessUnitsFromApiById(int id);
 	
+	List<BusinessUnitsFromApi> findByNameAndAddressAndVicinity(String name, String address, String vicinity);
+	
 	BusinessUnitsFromApi findById(int ssn);
 	
 	void updateBusinessUnitsFromApi(BusinessUnitsFromApi businessUnitsFromApi);
